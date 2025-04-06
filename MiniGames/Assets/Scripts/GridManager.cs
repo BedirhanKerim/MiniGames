@@ -2,28 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridManager : MonoBehaviour
+namespace Match3Game
 {
-    [SerializeField] private GameObject spawnBlock;
-    [SerializeField] private int width = 9;
-    [SerializeField] private int height = 9;
-    [SerializeField] private float spacing = 1f;
-    // Start is called before the first frame update
-    void Start()
+    public class GridManager : MonoBehaviour
     {
-        GenerateGrid();
-    }
-    void GenerateGrid()
-    {
-        for (int x = 0; x < width; x++)
+        [SerializeField] private GameObject spawnBlock;
+        [SerializeField] private int width = 9;
+        [SerializeField] private int height = 9;
+        [HideInInspector] public CubeTypes[,] cubeTypes = new CubeTypes[9, 9];
+        [HideInInspector] public BlockCube[,] AllBlocks = new BlockCube[9, 9];
+        [HideInInspector] public List<int> changingColumns = new();
+        [SerializeField] private float spacing = 1f;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            for (int y = 0; y < height; y++)
+            GenerateGrid();
+        }
+
+        void GenerateGrid()
+        {
+            for (int x = 0; x < width; x++)
             {
-                Vector2 spawnPosition = new Vector2(x * spacing, y * spacing);
-            var spawnedCube=    Instantiate(spawnBlock, spawnPosition, Quaternion.identity).transform;
-            spawnedCube.GetComponent<BlockCube>().gridIndex = new Vector2(x, y);
-            spawnedCube.GetComponent<BlockCube>().UpdateSortingOrder();
+                for (int y = 0; y < height; y++)
+                {
+                    Vector2 spawnPosition = new Vector2(x * spacing, y * spacing);
+                    //var spawnedCube = Instantiate(spawnBlock, spawnPosition, Quaternion.identity).transform;
+                    var spawnedCube = GameManager.Instance.spawnManager.SpawnBlock(BlockTypes.Cube);
+                    spawnedCube.position = spawnPosition;
+                    spawnedCube.GetComponent<BlockCube>().gridIndex = new Vector2Int (x, y);
+                    spawnedCube.GetComponent<BlockCube>().UpdateSortingOrder();
+                    cubeTypes[x, y] = spawnedCube.GetComponent<BlockCube>().cubeType;
+                    AllBlocks[x, y] = spawnedCube.GetComponent<BlockCube>();
+                }
             }
+        }
+        
+        public void AddChangingColumn(int columnIndex)
+        {
+            changingColumns.Add(columnIndex);
+        }
+        public void ClearChangingColumnList(int columnIndex)
+        {
+
+            changingColumns.Clear();
         }
     }
 }
