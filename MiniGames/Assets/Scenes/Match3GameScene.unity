@@ -441,6 +441,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RocketTrailEffect (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4818758602448800886, guid: 218510a12c89521448c28d283a69d2e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -519,6 +523,10 @@ PrefabInstance:
     - target: {fileID: 4818758602448800886, guid: 218510a12c89521448c28d283a69d2e8, type: 3}
       propertyPath: m_Name
       value: RocketTrailEffect (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818758602448800886, guid: 218510a12c89521448c28d283a69d2e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1171,6 +1179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RocketTrailEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 4818758602448800886, guid: 218510a12c89521448c28d283a69d2e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1499,6 +1511,11 @@ MonoBehaviour:
   PurpleCube: {fileID: 600178731}
   HorizontalRocket: {fileID: 815662192}
   VerticalRocket: {fileID: 1024144829}
+  CubeCrackParticleBlue: {fileID: 5775816036439046001, guid: fc6468ec4a1acc44c9d641d18caf1b14, type: 3}
+  CubeCrackParticleRed: {fileID: 5775816036439046001, guid: 6921f2bff94464541b87f7b9aae0aee6, type: 3}
+  CubeCrackParticleGreen: {fileID: 5775816036439046001, guid: ceccb4aac534d7944b1832c0bc588ece, type: 3}
+  CubeCrackParticlePurple: {fileID: 5775816036439046001, guid: 2eb481f79d3e1d74cbb7c02ceb4229fe, type: 3}
+  CubeCrackParticleYellow: {fileID: 5775816036439046001, guid: 7a69aa68527caf64c8b7421012d35def, type: 3}
 --- !u!1 &1251685113
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,6 +1871,10 @@ PrefabInstance:
     - target: {fileID: 4818758602448800886, guid: 218510a12c89521448c28d283a69d2e8, type: 3}
       propertyPath: m_Name
       value: RocketTrailEffect (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818758602448800886, guid: 218510a12c89521448c28d283a69d2e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

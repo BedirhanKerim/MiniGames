@@ -27,5 +27,8 @@ namespace Match3Game
         public virtual void UpdateSortingOrder()
         {
         }
+        public virtual void DestroyFunc(float time=0)
+        {
+        }
     }
 }

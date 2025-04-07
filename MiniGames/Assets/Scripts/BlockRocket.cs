@@ -25,7 +25,7 @@ namespace Match3Game
                     //  EffectsController.Instance.SpawnCubeCrackEffect(neigh.transform.position, curBlock.cubeType);
                     // cube.transform.DOKill();
                     var distance = Mathf.Abs(gridIndex.y - cube.y) / 20f;
-                    Destroy(GameManager.Instance.gridManager.AllBlocks[cube.x, cube.y].gameObject, distance);
+                    GameManager.Instance.gridManager.AllBlocks[cube.x, cube.y].transform.GetComponent<BlockCube>().DestroyFunc(distance);
 
                     GameManager.Instance.gridManager.AllBlocks[cube.x, cube.y] = null;
 
@@ -42,8 +42,8 @@ namespace Match3Game
                     //  EffectsController.Instance.SpawnCubeCrackEffect(neigh.transform.position, curBlock.cubeType);
                     // cube.transform.DOKill();
                     var distance = Mathf.Abs(gridIndex.x - cube.x) / 20f;
-                    Destroy(GameManager.Instance.gridManager.AllBlocks[cube.x, cube.y].gameObject, distance);
-
+                   // Destroy(GameManager.Instance.gridManager.AllBlocks[cube.x, cube.y].gameObject, distance);
+                    GameManager.Instance.gridManager.AllBlocks[cube.x, cube.y].transform.GetComponent<BlockCube>().DestroyFunc(distance);
                     GameManager.Instance.gridManager.AllBlocks[cube.x, cube.y] = null;
 
                     //GameManager.Instance.fillManager.Fill();
@@ -70,6 +70,7 @@ namespace Match3Game
                 {
                     GameManager.Instance.fillManager.Fill();
                     Destroy(gameObject);
+                    
                 });
                 RightOrDownObj.transform.DOMove(DownObjTargetPos, .5f).SetEase(Ease.Linear);
             }

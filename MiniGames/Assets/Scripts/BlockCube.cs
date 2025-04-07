@@ -59,7 +59,9 @@ namespace Match3Game
                     //  EffectsController.Instance.SpawnCubeCrackEffect(neigh.transform.position, curBlock.cubeType);
                     cube.transform.DOKill();
                     GameManager.Instance.gridManager.AllBlocks[cube.gridIndex.x, cube.gridIndex.y] = null;
-                    Destroy(cube.gameObject);
+                   // Destroy(cube.gameObject);
+                    cube.DestroyFunc();
+                   
                     //GameManager.Instance.fillManager.Fill();
                     Debug.Log("Connected cube: " + cube.gridIndex + " with color: " + cube.cubeType);
                 }
@@ -73,6 +75,13 @@ namespace Match3Game
 
             }
 
+        }
+
+        public override void DestroyFunc(float time=0)
+        {
+            GameManager.Instance.spawnManager.SpawnCubeCrackParticle(cubeType,transform.position);
+            Destroy(gameObject,time);
+            
         }
         public override void Interact()
         {

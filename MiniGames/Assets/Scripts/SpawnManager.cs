@@ -6,7 +6,8 @@ namespace Match3Game
 {
     public class SpawnManager : MonoBehaviour
     {
-        [SerializeField] private GameObject RedCube, BlueCube, GreenCube,YellowCube,PurpleCube,HorizontalRocket,VerticalRocket,CubeCrackParticle;
+        [SerializeField] private GameObject RedCube, BlueCube, GreenCube,YellowCube,PurpleCube,HorizontalRocket,VerticalRocket,CubeCrackParticleBlue,
+            CubeCrackParticleRed,CubeCrackParticleGreen,CubeCrackParticlePurple,CubeCrackParticleYellow;
 
         public Transform SpawnBlock(BlockTypes blockType, CubeTypes cubeType = CubeTypes.Empty)
         {
@@ -70,35 +71,29 @@ namespace Match3Game
         
         
         
-        public void SpawnCubeCrackParticle(BlockTypes colorType)
+        public void SpawnCubeCrackParticle(CubeTypes colorType, Vector3 spawnPosition)
         {
-          var  spawnedParticle = Instantiate(CubeCrackParticle).transform;
-          spawnedParticle.GetComponent<ParticleSystem>().startColor=
-            if (colorType == BlockTypes.Cube)
+            Transform spawnedParticle = null;
+
+            switch (colorType)
             {
-                switch (colorType)
-                {
-                    case CubeTypes.Red:
-                        break;
-                    case CubeTypes.Blue:
-                        spawnedBlock = Instantiate(BlueCube).transform;
-
-                        break;
-                    case CubeTypes.Green:
-                        spawnedBlock = Instantiate(GreenCube).transform;
-
-                        break;
-                    case CubeTypes.Purple:
-                        spawnedBlock = Instantiate(PurpleCube).transform;
-
-                        break;
-                    case CubeTypes.Yellow:
-                        spawnedBlock = Instantiate(YellowCube).transform;
-
-                        break;
-                }
-
+                case CubeTypes.Red:
+                    spawnedParticle = Instantiate(CubeCrackParticleRed, spawnPosition, Quaternion.identity).transform;
+                    break;
+                case CubeTypes.Blue:
+                    spawnedParticle = Instantiate(CubeCrackParticleBlue, spawnPosition, Quaternion.identity).transform;
+                    break;
+                case CubeTypes.Green:
+                    spawnedParticle = Instantiate(CubeCrackParticleGreen, spawnPosition, Quaternion.identity).transform;
+                    break;
+                case CubeTypes.Purple:
+                    spawnedParticle = Instantiate(CubeCrackParticlePurple, spawnPosition, Quaternion.identity).transform;
+                    break;
+                case CubeTypes.Yellow:
+                    spawnedParticle = Instantiate(CubeCrackParticleYellow, spawnPosition, Quaternion.identity).transform;
+                    break;
             }
+            Destroy(spawnedParticle.gameObject, 3f);
         }
     }
 
