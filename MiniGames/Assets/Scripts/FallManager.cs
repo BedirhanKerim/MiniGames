@@ -28,13 +28,14 @@ namespace Match3Game
 
                         // Başlangıç pozisyonunu gridin dışından veriyoruz (yukarıdan düşüyormuş gibi)
                         Vector3 spawnPos = new Vector3(x, height + 1);
-                        newBlockGO.transform.position = spawnPos;
+                        //newBlockGO.transform.position = spawnPos;
 
                         BlockCube cube = newBlockGO.GetComponent<BlockCube>();
 
                         cube.gridIndex = new Vector2Int(x, y);
                         cube.target =new Vector3(x, y, 0);
-                        cube.MoveToTarget(0.5f);
+                        newBlockGO.transform.position = new Vector3(x, y+9, 0);;
+                        cube.MoveToTarget(0.75f);
                         cube.UpdateSortingOrder();
 
                         allBlocks[x, y] = cube;

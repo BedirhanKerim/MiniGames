@@ -8,9 +8,9 @@ namespace Match3Game
     {
         private GridManager gridManager;
         private HashSet<Vector2> visited = new HashSet<Vector2>();
-        
 
-        public List<Block> FindConnectedCubes(Vector2Int  startingIndex, CubeTypes targetType)
+
+        public List<Block> FindConnectedCubes(Vector2Int startingIndex, CubeTypes targetType)
         {
             visited.Clear();
             List<Block> connectedCubes = new List<Block>();
@@ -35,7 +35,7 @@ namespace Match3Game
             if (currentCube != null && currentCube.cubeType == targetType)
             {
                 connectedCubes.Add(currentCube);
-GameManager.Instance.gridManager.AddNewChangingColumn(currentCube.gridIndex.x);
+                GameManager.Instance.gridManager.AddNewChangingColumn(currentCube.gridIndex.x);
                 Vector2Int[] neighborOffsets = new Vector2Int[]
                 {
                     new Vector2Int(-1, 0),
@@ -51,70 +51,46 @@ GameManager.Instance.gridManager.AddNewChangingColumn(currentCube.gridIndex.x);
                 }
             }
         }
-        
-        
-        
+
+
+
         public List<Vector2Int> FindHorizontalBlocks(Vector2Int gridIndex)
         {
             List<Vector2Int> horizontalBlocks = new List<Vector2Int>();
-
             var allBlocks = GameManager.Instance.gridManager.AllBlocks;
-            var startBlock = allBlocks[gridIndex.x, gridIndex.y];
-            if (startBlock == null) return horizontalBlocks;
 
-            var cubeType = startBlock.cubeType;
+            int width = allBlocks.GetLength(0);
 
-            // Sağa doğru sırayla
-            for (int x = gridIndex.x + 1; x < allBlocks.GetLength(0); x++)
+            for (int x = 0; x < width; x++)
             {
-                var block = allBlocks[x, gridIndex.y];
-                if (block != null && block.cubeType == cubeType)
-                    horizontalBlocks.Add(block.gridIndex);
-                else break;
-            }
+                if (x == gridIndex.x) continue;
 
-            // Sola doğru sırayla
-            for (int x = gridIndex.x - 1; x >= 0; x--)
-            {
                 var block = allBlocks[x, gridIndex.y];
-                if (block != null && block.cubeType == cubeType)
-                    horizontalBlocks.Add(block.gridIndex);
-                else break;
+                if (block != null)
+                    horizontalBlocks.Add(new Vector2Int(x, gridIndex.y));
             }
 
             return horizontalBlocks;
         }
-        public List<Vector2Int> FindVerticallBlocks(Vector2Int gridIndex)
+
+        public List<Vector2Int> FindVerticalBlocks(Vector2Int gridIndex)
         {
             List<Vector2Int> verticalBlocks = new List<Vector2Int>();
-
             var allBlocks = GameManager.Instance.gridManager.AllBlocks;
-            var startBlock = allBlocks[gridIndex.x, gridIndex.y];
-            if (startBlock == null) return verticalBlocks;
 
-            var cubeType = startBlock.cubeType;
+            int height = allBlocks.GetLength(1);
 
-            // Yukarı sırayla
-            for (int y = gridIndex.y + 1; y < allBlocks.GetLength(1); y++)
+            for (int y = 0; y < height; y++)
             {
-                var block = allBlocks[gridIndex.x, y];
-                if (block != null && block.cubeType == cubeType)
-                    verticalBlocks.Add(block.gridIndex);
-                else break;
-            }
+                if (y == gridIndex.y) continue;
 
-            // Aşağı sırayla
-            for (int y = gridIndex.y - 1; y >= 0; y--)
-            {
                 var block = allBlocks[gridIndex.x, y];
-                if (block != null && block.cubeType == cubeType)
-                    verticalBlocks.Add(block.gridIndex);
-                else break;
+                if (block != null)
+                    verticalBlocks.Add(new Vector2Int(gridIndex.x, y));
             }
 
             return verticalBlocks;
         }
-    }
-    
 
+    }
 }

@@ -40,5 +40,17 @@ public class FillManager : MonoBehaviour
         
     }
 
+    public void FillOnlyOneBlock(BlockTypes blockType, Vector2Int gridIndex)
+    {
+        int x = (int)gridIndex.x;
+        int y = (int)gridIndex.y;
+        var rocketBlock=   GameManager.Instance.spawnManager.SpawnRocket();
 
+        rocketBlock.GetComponent<BlockRocket>().gridIndex = gridIndex;
+        GameManager.Instance.gridManager.AllBlocks[gridIndex.x, gridIndex.y] = rocketBlock.GetComponent<Block>();
+        BlockTypes curBlockType = blockType;
+        rocketBlock.GetComponent<BlockRocket>().target = new Vector3(gridIndex.x,gridIndex.y,0);
+        rocketBlock.transform.position =new Vector3(gridIndex.x,gridIndex.y,0);
+
+    }
     }

@@ -25,7 +25,7 @@ namespace Match3Game
         {
             DOTween.Kill(transform);
             transform.DOKill();
-            transform.DOMove(target, arriveTime).SetEase(Ease.OutBounce).OnComplete(() => { Invoke(nameof(UpdateSortingOrder),1f);});
+            transform.DOMove(target, arriveTime).SetEase(Ease.OutBounce,1.5f).OnComplete(() => { Invoke(nameof(UpdateSortingOrder),1f);});
         }
 
         public override void UpdateSortingOrder()
@@ -52,14 +52,7 @@ namespace Match3Game
                 bool isRocketSpawned = false;
                 bool canSpawnRocket = connectedCubes.Count >= 5;
                 //bool canSpawnRocket = false;
-                if (canSpawnRocket)
-                {
-             //    var rocketBlock=   GameManager.Instance.spawnManager.SpawnRocket();
-
-               //  rocketBlock.GetComponent<BlockRocket>().gridIndex = gridIndex;
-                // GameManager.Instance.gridManager.AllBlocks[gridIndex.x,gridIndex.y]=
-                }
-                
+          
                 foreach (var cube in connectedCubes)
                 {
                     // cube.canClick = false;
@@ -67,9 +60,17 @@ namespace Match3Game
                     cube.transform.DOKill();
                     GameManager.Instance.gridManager.AllBlocks[cube.gridIndex.x, cube.gridIndex.y] = null;
                     Destroy(cube.gameObject);
-                    GameManager.Instance.fillManager.Fill();
+                    //GameManager.Instance.fillManager.Fill();
                     Debug.Log("Connected cube: " + cube.gridIndex + " with color: " + cube.cubeType);
                 }
+                if (canSpawnRocket)
+                {
+  
+                    GameManager.Instance.fillManager.FillOnlyOneBlock(BlockTypes.Rocket, gridIndex);
+                }
+
+                GameManager.Instance.fillManager.Fill();
+
             }
 
         }

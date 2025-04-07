@@ -6,7 +6,7 @@ namespace Match3Game
 {
     public class SpawnManager : MonoBehaviour
     {
-        [SerializeField] private GameObject RedCube, BlueCube, GreenCube,YellowCube,PurpleCube,HorizontalRocket,VerticalRocket;
+        [SerializeField] private GameObject RedCube, BlueCube, GreenCube,YellowCube,PurpleCube,HorizontalRocket,VerticalRocket,CubeCrackParticle;
 
         public Transform SpawnBlock(BlockTypes blockType, CubeTypes cubeType = CubeTypes.Empty)
         {
@@ -67,7 +67,41 @@ namespace Match3Game
 
             return spawnedRocket;
         }
+        
+        
+        
+        public void SpawnCubeCrackParticle(BlockTypes colorType)
+        {
+          var  spawnedParticle = Instantiate(CubeCrackParticle).transform;
+          spawnedParticle.GetComponent<ParticleSystem>().startColor=
+            if (colorType == BlockTypes.Cube)
+            {
+                switch (colorType)
+                {
+                    case CubeTypes.Red:
+                        break;
+                    case CubeTypes.Blue:
+                        spawnedBlock = Instantiate(BlueCube).transform;
+
+                        break;
+                    case CubeTypes.Green:
+                        spawnedBlock = Instantiate(GreenCube).transform;
+
+                        break;
+                    case CubeTypes.Purple:
+                        spawnedBlock = Instantiate(PurpleCube).transform;
+
+                        break;
+                    case CubeTypes.Yellow:
+                        spawnedBlock = Instantiate(YellowCube).transform;
+
+                        break;
+                }
+
+            }
+        }
     }
+
 
 }
 
