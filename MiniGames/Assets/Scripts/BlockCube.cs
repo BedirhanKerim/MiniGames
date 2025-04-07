@@ -4,15 +4,17 @@ using System.Numerics;
 using DG.Tweening;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
+
 namespace Match3Game
 {
-    public class BlockCube : MonoBehaviour, IInteractable
+    public class BlockCube : Block, IInteractable
     {
-        public Vector2Int  gridIndex;
-        public Transform target;
+      //  public Vector2Int  gridIndex;
+     //   public Vector3 target;
         public bool canClick = true;
-        public CubeTypes cubeType;
-
+       // public CubeTypes cubeType;
+     [SerializeField]  private SpriteRenderer childSpriteRenderer;
         // Start is called before the first frame update
         void Start()
         {
@@ -23,26 +25,27 @@ namespace Match3Game
         {
             DOTween.Kill(transform);
             transform.DOKill();
-            transform.DOMove(target.position, arriveTime).SetEase(Ease.OutBounce).OnComplete(() => { });
+            transform.DOMove(target, arriveTime).SetEase(Ease.OutBounce).OnComplete(() => { Invoke(nameof(UpdateSortingOrder),1f);});
         }
 
-        public void UpdateSortingOrder()
+        public override void UpdateSortingOrder()
         {
 
-            var mySpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
-            mySpriteRenderer.sortingOrder = (int)gridIndex.y + 1;
+            childSpriteRenderer.sortingOrder = (int)gridIndex.y + 1;
+            //childSpriteRenderer.sortingOrder = (int)target.y + 1;
+
+            Debug.Log("sorting");
         }
 
-        public void SetSortingOrder(int index)
+        public  void SetSortingOrder(int index)
         {
-            var mySpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
 
-            mySpriteRenderer.sortingOrder = index;
+            childSpriteRenderer.sortingOrder = index;
         }
 
         private void Clicked()
         {
-            List<BlockCube> connectedCubes = GameManager.Instance.neighbourManager.FindConnectedCubes(gridIndex, cubeType);
+            List<Block> connectedCubes = GameManager.Instance.neighbourManager.FindConnectedCubes(gridIndex, cubeType);
             if (connectedCubes.Count >= 2)
             {
                 
@@ -51,22 +54,26 @@ namespace Match3Game
                 //bool canSpawnRocket = false;
                 if (canSpawnRocket)
                 {
-                   // rocketSpawningEvent?.Invoke();
+             //    var rocketBlock=   GameManager.Instance.spawnManager.SpawnRocket();
 
+               //  rocketBlock.GetComponent<BlockRocket>().gridIndex = gridIndex;
+                // GameManager.Instance.gridManager.AllBlocks[gridIndex.x,gridIndex.y]=
+                }
+                
+                foreach (var cube in connectedCubes)
+                {
+                    // cube.canClick = false;
+                    //  EffectsController.Instance.SpawnCubeCrackEffect(neigh.transform.position, curBlock.cubeType);
+                    cube.transform.DOKill();
+                    GameManager.Instance.gridManager.AllBlocks[cube.gridIndex.x, cube.gridIndex.y] = null;
+                    Destroy(cube.gameObject);
+                    GameManager.Instance.fillManager.Fill();
+                    Debug.Log("Connected cube: " + cube.gridIndex + " with color: " + cube.cubeType);
                 }
             }
 
-            foreach (var cube in connectedCubes)
-            {
-               // cube.canClick = false;
-              //  EffectsController.Instance.SpawnCubeCrackEffect(neigh.transform.position, curBlock.cubeType);
-              cube.transform.DOKill();
-              Destroy(cube.gameObject);
-
-                Debug.Log("Connected cube: " + cube.gridIndex + " with color: " + cube.cubeType);
-            }
         }
-        public void Interact()
+        public override void Interact()
         {
             if (canClick)
             {

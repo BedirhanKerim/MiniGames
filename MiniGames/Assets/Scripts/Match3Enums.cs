@@ -29,4 +29,9 @@ namespace Match3Game
 
         }
     
+        public enum RocketDirection
+        {
+            Vertical,
+            Horizontal
+        }
 }

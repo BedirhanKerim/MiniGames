@@ -6,7 +6,7 @@ namespace Match3Game
 {
     public class SpawnManager : MonoBehaviour
     {
-        [SerializeField] private GameObject RedCube, BlueCube, GreenCube,YellowCube,PurpleCube;
+        [SerializeField] private GameObject RedCube, BlueCube, GreenCube,YellowCube,PurpleCube,HorizontalRocket,VerticalRocket;
 
         public Transform SpawnBlock(BlockTypes blockType, CubeTypes cubeType = CubeTypes.Empty)
         {
@@ -48,6 +48,26 @@ namespace Match3Game
             return spawnedBlock;
 
         }
+        
+        public Transform SpawnRocket()
+        {
+            Transform spawnedRocket = null;
+
+            // 0 veya 1: %50 ihtimalle
+            int random = Random.Range(0, 2);
+
+            if (random == 0)
+            {
+                spawnedRocket = Instantiate(HorizontalRocket).transform;
+            }
+            else
+            {
+                spawnedRocket = Instantiate(VerticalRocket).transform;
+            }
+
+            return spawnedRocket;
+        }
     }
+
 }
 

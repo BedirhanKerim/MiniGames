@@ -22,7 +22,7 @@ namespace Match3Game
 
             if (hit.collider != null)
             {
-                BlockCube clickedBlock = hit.collider.GetComponent<BlockCube>();
+                Block clickedBlock = hit.collider.GetComponent<Block>();
                 if (clickedBlock != null)
                 {
                     clickedBlock.Interact();

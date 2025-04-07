@@ -10,8 +10,8 @@ namespace Match3Game
         [SerializeField] private int width = 9;
         [SerializeField] private int height = 9;
         [HideInInspector] public CubeTypes[,] cubeTypes = new CubeTypes[9, 9];
-        [HideInInspector] public BlockCube[,] AllBlocks = new BlockCube[9, 9];
-        [HideInInspector] public List<int> changingColumns = new();
+        [HideInInspector] public Block[,] AllBlocks = new Block[9, 9];
+        [HideInInspector] public Dictionary<int, int> changingColumns = new Dictionary<int, int>();//key is column index value is changing block count
         [SerializeField] private float spacing = 1f;
 
         // Start is called before the first frame update
@@ -38,14 +38,30 @@ namespace Match3Game
             }
         }
         
-        public void AddChangingColumn(int columnIndex)
+        public void AddNewChangingColumn(int columnIndex)
         {
-            changingColumns.Add(columnIndex);
+            if (changingColumns.ContainsKey(columnIndex))
+            {
+                int tmp = changingColumns[columnIndex];
+                changingColumns[columnIndex] = tmp + 1;
+            }
+            else
+            {
+                changingColumns.Add(columnIndex, 1);
+            }
         }
-        public void ClearChangingColumnList(int columnIndex)
+        public void DecreaseChangingColumn(int columnIndex)
         {
-
-            changingColumns.Clear();
+            if (changingColumns.ContainsKey(columnIndex))
+            {
+                int tmp = changingColumns[columnIndex];
+                changingColumns[columnIndex] = tmp - 1;
+                if (changingColumns[columnIndex] == 0)
+                {
+                    changingColumns.Remove(columnIndex);
+                }
+            }
+      
         }
     }
 }

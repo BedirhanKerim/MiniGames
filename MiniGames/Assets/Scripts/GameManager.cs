@@ -9,5 +9,7 @@ namespace Match3Game
         public GridManager gridManager;
         public SpawnManager spawnManager;
         public NeighbourManager neighbourManager;
+        public FillManager fillManager;
+        public FallManager fallManager;
     }
 }
