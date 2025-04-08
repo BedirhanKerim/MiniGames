@@ -8,35 +8,35 @@ namespace Runner
 {
     
 
-public class GameManagerRunner : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     private int _score;
-    [SerializeField] private TextMeshProUGUI scoreText;
-
 
     private void Start()
     {
         _score = PlayerPrefs.GetInt("ScoreRunner", 0);
-        scoreText.text = _score.ToString();
+        GameEventManager.Instance.ScoreChangedUI(_score);
     }
-
+   
     private void OnEnable()
     {
-        GameEventManager.Instance.OnCollectGold += AddScore;
+        GameEventManager.Instance.OnScoreChanged += AddScore;
+
         GameEventManager.Instance.OnEndGame += EndGame;
     }
 
     private void OnDisable()
     {
-        GameEventManager.Instance.OnCollectGold -= AddScore;
         GameEventManager.Instance.OnEndGame -= EndGame;
+        GameEventManager.Instance.OnScoreChanged -= AddScore;
+
 
     }
 
     private void AddScore(int value)
     {
         _score += value;
-        scoreText.text = _score.ToString();
+        GameEventManager.Instance.ScoreChangedUI(_score);
         PlayerPrefs.SetInt("ScoreRunner", _score);
     }
 

@@ -6,9 +6,12 @@ using UnityEngine.Events;
 
 namespace Match3Game
 {
-    public class GameEventManager : Singleton<GameEventManager>
+    public class GameEventManager : Singleton<GameEventManager>,IGameEventManager
     {//GameManager
-        public event UnityAction<int> OnScoreChanged;
+      public event UnityAction OnEndGame;
+      public event UnityAction<int> OnScoreChanged;
+      public event UnityAction<int> OnScoreChangedUI;
+
         //SpawnManager
         public event UnityAction<CubeTypes , Vector3 > OnSpawnCubeCrackParticle;
         public event Func<Transform> OnSpawnRandomBlockCube;
@@ -77,5 +80,11 @@ namespace Match3Game
         {
           OnFall?.Invoke();
         }
+        public  void EndGame() { }
+        public  void ScoreChangedUI(int arg0)
+        {
+          OnScoreChangedUI?.Invoke(arg0);
+        }
+
     }
 }

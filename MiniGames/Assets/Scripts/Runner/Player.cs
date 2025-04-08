@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,21 +16,28 @@ namespace Runner
         private float moveFactorX;
 
         //  [SerializeField] private Transform crowdMainObjTransform;
-        private bool _bIsStarted = false;
-        private bool _bIsGameEnd = false;
+        private bool _bIsStarted = true;
 
         [SerializeField] private Transform fogMainObj;
 
+        private void OnEnable()
+        {
+            GameEventManager.Instance.OnEndGame += EndGame;
+        }
+
+        private void OnDisable()
+        {
+            GameEventManager.Instance.OnEndGame -= EndGame;
+        }
+
         void Update()
         {
-
             if (Input.GetMouseButtonDown(0))
             {
                 lastFrameFingerPositionX = Input.mousePosition.x;
                 if (!_bIsStarted)
                 {
-                    _bIsStarted = true;
-                    //  GameEventManager.Instance.LevelStart();
+                    return; //  GameEventManager.Instance.LevelStart();
                 }
             }
             else if (Input.GetMouseButton(0))
@@ -43,10 +51,7 @@ namespace Runner
                 moveFactorX = 0f;
             }
 
-            if (!_bIsStarted || _bIsGameEnd)
-            {
-                return;
-            }
+
 
             transform.position += Vector3.forward * speed * Time.deltaTime;
             fogMainObj.position = new Vector3(0, 0, transform.position.z + 70);
@@ -65,6 +70,12 @@ namespace Runner
             {
                 interactable.Interact();
             }
+        }
+
+        private void EndGame()
+        {
+            _bIsStarted = false;
+            gameObject.SetActive(false);
         }
     }
 }

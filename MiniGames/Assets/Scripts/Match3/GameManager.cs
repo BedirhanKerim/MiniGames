@@ -9,20 +9,28 @@ namespace Match3Game
     public class GameManager : Singleton<GameManager>
     {
         private int _score;
-        [SerializeField] private TextMeshProUGUI scoreText;
-
-
-        private void Start()
+        private void OnEnable()
         {
             GameEventManager.Instance.OnScoreChanged += AddScore;
+
+        }
+
+        private void OnDisable()
+        {
+            GameEventManager.Instance.OnScoreChanged -= AddScore;
+
+
+        }
+        private void Start()
+        {
              _score = PlayerPrefs.GetInt("Score", 0);
-            scoreText.text = _score.ToString();
+             GameEventManager.Instance.ScoreChangedUI(_score);
         }
 
         private void AddScore(int value)
         {
             _score += value;
-            scoreText.text = _score.ToString();
+            GameEventManager.Instance.ScoreChangedUI(_score);
             PlayerPrefs.SetInt("Score", _score);
         }
     }

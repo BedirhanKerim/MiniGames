@@ -8,7 +8,7 @@ namespace Runner
     {
         public override void Interact()
         {
-            GameEventManager.Instance.CollectGold(10);
+            GameEventManager.Instance.ScoreChanged(10);
             GameEventManager.Instance.SpawnGoldParticle(transform.position);
             Destroy(gameObject);
         }

@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MiniGameMainMenu.unity
+    guid: a501e7ab00fbc7d4581df3ba3a94296b
+  - enabled: 1
+    path: Assets/Scenes/TransitionScene.unity
+    guid: 7c221e15072e854478ea5a573d5b6ce4
+  - enabled: 1
+    path: Assets/Scenes/RunnerGameScene.unity
+    guid: c9da5b196f9ac094b97121d25426594c
+  - enabled: 1
+    path: Assets/Scenes/Match3GameScene.unity
+    guid: b706dbec2b47f694f8deb48d94aa972f
   m_configObjects: {}
