@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Runner
 {
  public class SpawnManager : MonoBehaviour
  {
-  [SerializeField] private GameObject goldParticle,roadPiecePrefab1;
+  [SerializeField] private GameObject goldParticle,roadPiecePrefab1,roadPiecePrefab2,roadPiecePrefab3;
   [SerializeField] private Transform roadPiecesParentObj;
 
 
@@ -32,7 +33,24 @@ namespace Runner
   private void SpawnRandomRoad(float zPosition)
   {
    Vector3 spawnPos = new Vector3(0, 0, zPosition);
-   Instantiate(roadPiecePrefab1, spawnPos, Quaternion.identity,roadPiecesParentObj);
+
+   int randomIndex = Random.Range(0, 3); // 0, 1 veya 2
+   GameObject prefabToSpawn = null;
+
+   switch (randomIndex)
+   {
+    case 0:
+     prefabToSpawn = roadPiecePrefab1;
+     break;
+    case 1:
+     prefabToSpawn = roadPiecePrefab2;
+     break;
+    case 2:
+     prefabToSpawn = roadPiecePrefab3;
+     break;
+   }
+
+   Instantiate(prefabToSpawn, spawnPos, Quaternion.identity, roadPiecesParentObj);
   }
  }
 }

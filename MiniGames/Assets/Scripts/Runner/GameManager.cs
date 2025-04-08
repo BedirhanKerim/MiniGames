@@ -42,7 +42,7 @@ public class GameManagerRunner : MonoBehaviour
 
     private void EndGame()
     {
-        
+        Debug.Log("End Game");
     }
 }
 }
