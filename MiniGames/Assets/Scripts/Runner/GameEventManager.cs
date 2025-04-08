@@ -10,6 +10,7 @@ namespace Runner
         public event UnityAction<int> OnCollectGold;
         public event UnityAction<Vector3> OnSpawnGoldParticle;
         public event UnityAction OnEndGame;
+        public event UnityAction<float> OnSpawnRoadPiece;
 
         public  void CollectGold(int arg0)
         {
@@ -24,6 +25,11 @@ namespace Runner
         public  void EndGame()
         {
             OnEndGame?.Invoke();
+        }
+
+        public  void SpawnRoadPiece(float arg0)
+        {
+            OnSpawnRoadPiece?.Invoke(arg0);
         }
     }
 }

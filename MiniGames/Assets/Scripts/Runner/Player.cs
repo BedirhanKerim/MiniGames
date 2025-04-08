@@ -18,7 +18,7 @@ namespace Runner
         private bool _bIsStarted = false;
         private bool _bIsGameEnd = false;
 
-
+        [SerializeField] private Transform fogMainObj;
 
         void Update()
         {
@@ -49,6 +49,7 @@ namespace Runner
             }
 
             transform.position += Vector3.forward * speed * Time.deltaTime;
+            fogMainObj.position = new Vector3(0, 0, transform.position.z + 70);
             float newX = transform.transform.position.x + moveFactorX * swerveSpeed;
             newX = Mathf.Clamp(newX, -maxSwerveAmount, maxSwerveAmount);
 
